@@ -1,7 +1,2 @@
-# Docker Commands
 
-## Create container
-
-```bash
-docker run <image name>
-```
+version: ''
