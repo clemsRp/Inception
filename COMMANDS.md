@@ -13,9 +13,9 @@ docker start <container id>
 
 ## Interact with container
 ```bash
-docker exec <container id> <command>  #  Interact inside the container
+docker exec <container id> <command>  #  Interact one time inside the container
 
-docker exec -it <container id> bash   #  Interact inside the container
+docker exec -it <container id> bash   #  Interact multiple time inside the container
 ```
 
 ## Stop container
