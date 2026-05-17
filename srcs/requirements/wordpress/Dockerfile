@@ -17,8 +17,8 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /usr/local/bin/wp
 
-COPY conf/auto_config.sh /auto_config.sh
-ENTRYPOINT [ "sh", "/auto_config.sh" ]
+COPY tools/php_config.sh /php_config.sh
+ENTRYPOINT [ "sh", "/php_config.sh" ]
 
 RUN mkdir -p /run/php
 CMD ["/usr/sbin/php-fpm7.4", "-F"]
