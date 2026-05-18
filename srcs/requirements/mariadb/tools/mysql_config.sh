@@ -3,10 +3,6 @@
 service mariadb start;
 sleep 2.5
 
-# Get the database passwords
-SQL_PASSWORD=$(cat ../../../../secrets/db_password.txt)
-SQL_ROOT_PASSWORD=$(cat ../../../../secrets/db_root_password.txt)
-
 # Set database
 mysql -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
 mysql -e "CREATE USER IF NOT EXISTS \`${SQL_USER}\`@'localhost' IDENTIFIED BY '\`${SQL_PASSWORD}\`';"

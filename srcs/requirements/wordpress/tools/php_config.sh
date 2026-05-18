@@ -2,17 +2,17 @@
 # Wait mariadb database start
 sleep 10
 
-# Get the database password
-SQL_PASSWORD=$(cat ../../../../secrets/db_password.txt)
+echo $WORDPRESS_DATABASE $WORDPRESS_PASSWORD $WORDPRESS_USER
 
 # Generate the wp-config.php file
 wp config create \
 	--allow-root \
-	--dbname=$SQL_DATABASE \
-	--dbuser=$SQL_USER \
-	--dbpass=$SQL_PASSWORD \
+	--dbname=$WORDPRESS_DATABASE \
+	--dbuser=$WORDPRESS_USER \
+	--dbpass=$WORDPRESS_PASSWORD \
 	--dbhost=mariadb:3306 \
-	--path='/var/www/wordpress'
+	--path='/var/www/wordpress' \
+	--allow-root
 
 # Install the wordpress core and create the first user, defined previously in the wp-config.php
 wp core install
