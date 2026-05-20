@@ -2,7 +2,8 @@
 # Wait mariadb database start
 sleep 10
 
-echo $WORDPRESS_DATABASE $WORDPRESS_PASSWORD $WORDPRESS_USER
+# Get the wordpress variables
+. /run/secrets/credentials
 
 # Generate the wp-config.php file
 wp config create \
@@ -12,10 +13,9 @@ wp config create \
 	--dbpass=$WORDPRESS_PASSWORD \
 	--dbhost=mariadb:3306 \
 	--path='/var/www/wordpress' \
-	--allow-root
 
 # Install the wordpress core and create the first user, defined previously in the wp-config.php
-wp core install
+wp core install --allow-root
 
 # Create the second user in the database
-wp user create
+wp user create --allow-root
