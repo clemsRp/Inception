@@ -1,4 +1,7 @@
 
+# Create repertory if necessary
+mkdir -p /run/php
+
 # Wait mariadb database start
 sleep 10
 
