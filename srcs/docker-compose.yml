@@ -2,7 +2,7 @@
 services:
     mariadb:
         container_name: mariadb
-        image: mariadb
+        image: mariadb:v1
         build:
             context: requirements/mariadb
             dockerfile: Dockerfile
@@ -21,7 +21,7 @@ services:
 
     nginx:
         container_name: nginx
-        image: nginx
+        image: nginx:v1
         build:
             context: requirements/nginx
             dockerfile: Dockerfile
@@ -31,6 +31,7 @@ services:
             - .env
         volumes:
             - wordpress:/var/www/wordpress
+            - ssl_certs:/etc/nginx/ssl
         restart: unless-stopped
         depends_on:
             - wordpress
@@ -39,7 +40,7 @@ services:
 
     wordpress:
         container_name: wordpress
-        image: wordpress
+        image: wordpress:v1
         build:
             context: requirements/wordpress
             dockerfile: Dockerfile
@@ -57,6 +58,64 @@ services:
         secrets:
             - credentials
 
+    redis:
+        container_name: redis
+        image: redis:v1
+        build:
+            context: requirements/bonus/redis
+            dockerfile: Dockerfile
+        networks:
+            - inception
+        env_file:
+            - .env
+        restart: unless-stopped
+
+    adminer:
+        container_name: adminer
+        image: adminer:v1
+        build:
+            context: requirements/bonus/adminer
+            dockerfile: Dockerfile
+        networks:
+            - inception
+        restart: unless-stopped
+
+    ftp:
+        container_name: ftp
+        image: ftp:v1
+        build:
+            context: requirements/bonus/ftp
+            dockerfile: Dockerfile
+        volumes:
+            - wordpress:/var/www/wordpress
+        networks:
+            - inception
+        env_file:
+            - .env
+        restart: unless-stopped
+        ports:
+            - "21:21"
+            - "40000-40005:40000-40005"
+        secrets:
+            - credentials
+
+    static_site:
+        container_name: static_site
+        image: static_site:v1
+        build:
+            context: ./requirements/bonus/static_site
+            dockerfile: Dockerfile
+        volumes:
+            - ssl_certs:/etc/nginx/ssl
+            - static_site:/var/www/static
+        networks:
+            - inception
+        restart: unless-stopped
+        depends_on:
+            - nginx
+        ports:
+            - "8081:8081"
+
 volumes:
     wordpress:
         driver: local
@@ -71,6 +130,20 @@ volumes:
             type: 'none' 
             o: 'bind'
             device: '/Users/crappo/data/mariadb'
+
+    ssl_certs:
+        driver: local
+        driver_opts:
+            type: 'none'
+            o: 'bind'
+            device: '/Users/crappo/data/ssl'
+
+    static_site:
+        driver: local
+        driver_opts:
+            type: 'none' 
+            o: 'bind'
+            device: './requirements/bonus/static_site/tools'
 
 networks:
     inception:

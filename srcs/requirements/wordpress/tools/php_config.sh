@@ -37,6 +37,22 @@ if [ ! -f /var/www/wordpress/wp-config.php ]; then
 	    --path='/var/www/wordpress' \
 	    --role=author \
 	    --user_pass=$WORDPRESS_USER_PASSWORD
+
+	# Configuring Redis access in wp-config.php
+	wp plugin install redis-cache \
+		--activate \
+		--allow-root \
+		--path='/var/www/wordpress'
+
+	wp config set WP_REDIS_HOST redis --allow-root --path='/var/www/wordpress'
+	wp config set WP_REDIS_PORT 6379 --allow-root --path='/var/www/wordpress'
+	wp config set WP_CACHE true --raw --allow-root --path='/var/www/wordpress'
+
+	# Enabling the Redis cache via WP-CLI
+	wp redis enable \
+		--allow-root \
+		--path='/var/www/wordpress'
+
 fi
 
 exec php-fpm7.4 -F
