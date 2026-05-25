@@ -134,21 +134,21 @@ volumes:
         driver_opts:
             type: 'none'
             o: 'bind'
-            device: '/Users/crappo/data/wordpress'
+            device: '/home/crappo/data/wordpress'
 
     mariadb:
         driver: local
         driver_opts:
             type: 'none' 
             o: 'bind'
-            device: '/Users/crappo/data/mariadb'
+            device: '/home/crappo/data/mariadb'
 
     ssl_certs:
         driver: local
         driver_opts:
             type: 'none'
             o: 'bind'
-            device: '/Users/crappo/data/ssl'
+            device: '/home/crappo/data/ssl'
 
     static_site:
         driver: local

@@ -2,9 +2,9 @@
 DOCKER_COMPOSE_PATH = srcs/docker-compose.yml
 
 prep:
-	@sudo mkdir -p /Users/crappo/data/mariadb
-	@sudo mkdir -p /Users/crappo/data/wordpress
-	@sudo mkdir -p /Users/crappo/data/ssl
+	@sudo mkdir -p /home/crappo/data/mariadb
+	@sudo mkdir -p /home/crappo/data/wordpress
+	@sudo mkdir -p /home/crappo/data/ssl
 
 down:
 	docker compose -f $(DOCKER_COMPOSE_PATH) down -v
@@ -12,9 +12,9 @@ down:
 
 down_no_cache:
 	docker compose -f $(DOCKER_COMPOSE_PATH) down -v
-	sudo rm -rf /Users/crappo/data/mariadb/*         
-	sudo rm -rf /Users/crappo/data/wordpress/*
-	sudo rm -rf /Users/crappo/data/ssl/*
+	sudo rm -rf /home/crappo/data/mariadb/*         
+	sudo rm -rf /home/crappo/data/wordpress/*
+	sudo rm -rf /home/crappo/data/ssl/*
 	$(MAKE) prep
 
 build:

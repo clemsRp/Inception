@@ -3,7 +3,10 @@
 mkdir -p /run/php
 
 # Wait mariadb database start
-sleep 10
+until mariadb-admin ping -h"mariadb" --silent; do
+    echo "Waiting MariaDB..."
+    sleep 1
+done
 
 # Get the wordpress variables
 . /run/secrets/credentials
