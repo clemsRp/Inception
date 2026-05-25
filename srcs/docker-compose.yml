@@ -103,7 +103,7 @@ services:
         container_name: static_site
         image: static_site:v1
         build:
-            context: ./requirements/bonus/static_site
+            context: requirements/bonus/static_site
             dockerfile: Dockerfile
         volumes:
             - ssl_certs:/etc/nginx/ssl
@@ -115,6 +115,18 @@ services:
             - nginx
         ports:
             - "8081:8081"
+
+    glances:
+        container_name: glances
+        image: glances:v1
+        build:
+            context: requirements/bonus/glances
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        networks:
+          - inception
+        expose:
+          - "61208"
 
 volumes:
     wordpress:
