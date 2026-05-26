@@ -1,10 +1,20 @@
 
+let flag = true;
 const billy = document.querySelector("#billy");
 const line = "<li><pre>                              |  |  |  |                          ||  |        </pre></li>";
 
-let flag = true;
-const scroll = true;
-const infinity_scroll = true;
+const urlParams = new URLSearchParams(window.location.search);
+
+let scroll = true;
+let infinity_scroll = true;
+
+const scroll_res = urlParams.get('scroll');
+const infinity_scroll_res = urlParams.get('infinity_scroll');
+
+if (scroll_res !== null)
+	scroll = scroll_res === "true";
+if (infinity_scroll_res !== null)
+	infinity_scroll = infinity_scroll_res === "true";
 
 function add_legs(nb_legs)
 {
