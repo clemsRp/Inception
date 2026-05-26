@@ -19,3 +19,24 @@ h1, div {
 	margin-top: 100px;
 	margin-left: 35%;
 }
+
+img {
+	width: 65px;
+	position: absolute;
+}
+
+#one {
+	left: 45%;
+}
+
+#two {
+	left: 47%;
+}
+
+#three {
+	left: 57%;
+}
+
+#four {
+	left: 58%;
+}

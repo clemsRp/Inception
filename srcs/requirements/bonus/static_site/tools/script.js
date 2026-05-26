@@ -1,7 +1,10 @@
 
-let flag = true;
 const billy = document.querySelector("#billy");
 const line = "<li><pre>                              |  |  |  |                          ||  |        </pre></li>";
+
+let flag = true;
+const scroll = true;
+const infinity_scroll = true;
 
 function add_legs(nb_legs)
 {
@@ -11,26 +14,21 @@ function add_legs(nb_legs)
 
 add_legs(15);
 
-function display_price()
+if (scroll)
 {
-
-}
-
-let dernierePosition = 0;
-window.addEventListener('scroll', () => {
-	const positionActuelle = window.scrollY || window.pageYOffset;
-
-	if (flag && billy.innerHTML.length >= 50000)
-	{
-		display_price();
-		flag = false;
-	}
-
-	if (flag && (
-		positionActuelle >= dernierePosition ||
-		positionActuelle === window.innerHeight
-	))
+	let dernierePosition = 0;
+	window.addEventListener('scroll', () => {
+		const positionActuelle = window.scrollY || window.pageYOffset;
+		
+		if (!infinity_scroll && flag && billy.innerHTML.length >= 50000)
+			flag = false;
+		
+		if (flag && (
+			positionActuelle >= dernierePosition ||
+			positionActuelle === window.innerHeight
+		))
 		add_legs(10);
 
-	dernierePosition = positionActuelle;
-});
+		dernierePosition = positionActuelle;
+	});
+}
